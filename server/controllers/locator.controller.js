@@ -29,6 +29,56 @@ function getAppLocatorByKey(req, res) {
     .catch(e => next(e));
 }
 
+function addUpdateLocator(req, res) {
+
+  let _q = {$and: [
+    {'app_type': req.body.app_type},
+    {'xpath.key': req.body.xpath.key}
+  ]}
+
+  Locator.get(_q)
+    .then((locator) => {
+      if(locator && locator.length) {
+
+        req.body.tags = arrayUnique(data[0].tags.concat(req.body.tags));    // todo: remove tags whenever applicable
+        Locator.findOneAndUpdate({$and: [
+            {'app_type': req.body.app_type},
+            {'xpath.key': req.body.xpath.key}
+          ]}
+          , {$set: {"tags" : req.body.tags, "xpath.value":req.body.xpath.value}}, function(err, doc){
+            if (err) {
+              res.json({
+                "errors": {
+                  "errorMessage": err,
+                  "errorCode": "PROCESSING_ERROR"
+                }
+              });
+            }
+
+            doc.tags = req.body.tags;
+            doc.xpath.value = req.body.xpath.value;
+
+            res.json(doc);
+          });
+
+      } else {
+        var xpath = new Xpath(req.body);
+        xpath.save(function(err, xpathData) {
+          if (err) {
+            res.json({
+              "errors": {
+                "errorMessage": err,
+                "errorCode": "PROCESSING_ERROR"
+              }
+            });
+          }
+          return res.json(xpathData);
+        });
+      }
+    })
+    .catch(e => next(e));
+}
+
 /**
  * Get locator list.
  * @property {number} req.query.skip - Number of locator to be skipped.
