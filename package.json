@@ -7,8 +7,7 @@
   "private": false,
   "engines": {
     "node": "6.10.3",
-    "npm": "3.10.10",
-    "yarn": ">=0.20.3"
+    "npm": "3.10.10"
   },
   "scripts": {
     "postinstall": "gulp",
