@@ -10,7 +10,6 @@
     "npm": "3.10.10"
   },
   "scripts": {
-    "postinstall": "gulp",
     "start": "node index.js"
   },
   "repository": {
