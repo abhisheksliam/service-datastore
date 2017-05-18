@@ -31,6 +31,16 @@ router.route('/')
 /** POST /api/scripts - Create new script */
 .post(_script2.default.generateAndSaveScript);
 
+/**
+ *
+ {
+"template_id": "sample_template_uuid_1",
+"step_number": "1",
+"task_id": "SKJ16.XL.01.01.09",
+"scenario": "A1"
+}
+ */
+
 router.route('/:scriptId')
 /** GET /api/scripts/:scriptId - Get script */
 .get(_script2.default.getByScriptId);

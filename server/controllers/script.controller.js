@@ -127,13 +127,15 @@ function mergeTemplateParams( template, params ) {
   // todo: replace using regex
 
   function getKeyValue(key){
-      params.forEach((el) => {
+      var ret = "";
+      for (var i=0; i<params.length; i++){
+          let el = params[i];
           if((delimeter + el['key'] + delimeter) === key) {
-              return el['refer']['ext_key'];
-          } else {
-              return null;
+              ret = el['refer']['ext_key'];
+              break;
           }
-      })
+      }
+      return ret;
   };
 
     var _ret = JSON.stringify(template).replace(/\$\$.*?\$\$/gi, function myFunction(x){return getKeyValue(x);});
