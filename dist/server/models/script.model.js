@@ -23,11 +23,19 @@ var _APIError2 = _interopRequireDefault(_APIError);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /**
- * Mapper Schema
+ * Script Schema
  */
-var MapperSchema = new _mongoose2.default.Schema({
-  "template_id": String,
-  "parameters": []
+var ScriptSchema = new _mongoose2.default.Schema({
+  "uuid": String,
+  "name": String,
+  "task_id": String,
+  "meta": {},
+  "publish": {},
+  "task_json": [{ "scenario": String,
+    "id": String,
+    "appName": String,
+    "items": []
+  }]
 });
 
 /**
@@ -40,30 +48,29 @@ var MapperSchema = new _mongoose2.default.Schema({
 /**
  * Methods
  */
-MapperSchema.method({});
+ScriptSchema.method({});
 
 /**
  * Statics
  */
-MapperSchema.statics = {
+ScriptSchema.statics = {
   /**
    * Get user
-   * @param {ObjectId} id - The objectId of mapper.
+   * @param {ObjectId} id - The objectId of script.
    * @returns {Promise<User, APIError>}
    */
   get: function get(_q) {
-    return this.findOne(_q).exec().then(function (mapper) {
-      if (mapper) {
-        return mapper;
-      }
-      var err = new _APIError2.default('No such mapper exists!', _httpStatus2.default.NOT_FOUND);
+    return this.findOne(_q).exec().then(function (script) {
+      return script;
+
+      var err = new _APIError2.default('No such script exists!', _httpStatus2.default.NOT_FOUND);
       return _bluebird2.default.reject(err);
     });
   },
 
 
   /**
-   * List mapper in descending order of 'createdAt' timestamp.
+   * List script in descending order of 'createdAt' timestamp.
    * @param {number} skip - Number of users to be skipped.
    * @param {number} limit - Limit number of users to be returned.
    * @returns {Promise<User[]>}
@@ -80,8 +87,8 @@ MapperSchema.statics = {
 };
 
 /**
- * @typedef Mapper
+ * @typedef Script
  */
-exports.default = _mongoose2.default.model('Mapper', MapperSchema, 'mappers');
+exports.default = _mongoose2.default.model('Script', ScriptSchema, 'scripts');
 module.exports = exports['default'];
-//# sourceMappingURL=mapper.model.js.map
+//# sourceMappingURL=script.model.js.map

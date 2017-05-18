@@ -28,6 +28,10 @@ var _locator = require('./locator.route');
 
 var _locator2 = _interopRequireDefault(_locator);
 
+var _script = require('./script.route');
+
+var _script2 = _interopRequireDefault(_script);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var router = _express2.default.Router(); // eslint-disable-line new-cap
@@ -51,6 +55,9 @@ router.use('/mapper', _mapper2.default);
 
 // mount template routes at /templates
 router.use('/locators', _locator2.default);
+
+// mount template routes at /scripts
+router.use('/scripts', _script2.default);
 
 exports.default = router;
 module.exports = exports['default'];

@@ -55,7 +55,7 @@ TemplateSchema.statics = {
    * @returns {Promise<User, APIError>}
    */
   get: function get(_q) {
-    return this.find(_q).exec().then(function (template) {
+    return this.findOne(_q).exec().then(function (template) {
       if (template) {
         return template;
       }

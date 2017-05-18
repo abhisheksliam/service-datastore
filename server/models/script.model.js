@@ -4,11 +4,21 @@ import httpStatus from 'http-status';
 import APIError from '../helpers/APIError';
 
 /**
- * Mapper Schema
+ * Script Schema
  */
-const MapperSchema = new mongoose.Schema({
-  "template_id": String,
-  "parameters": []
+const ScriptSchema = new mongoose.Schema({
+  "uuid": String,
+  "name": String,
+  "task_id": String,
+  "meta": {},
+  "publish": {},
+  "task_json": [
+    {"scenario": String,
+     "id": String,
+      "appName": String,
+      "items": []
+    }
+  ]
 });
 
 /**
@@ -21,34 +31,31 @@ const MapperSchema = new mongoose.Schema({
 /**
  * Methods
  */
-MapperSchema.method({
-
-
+ScriptSchema.method({
 });
 
 /**
  * Statics
  */
-MapperSchema.statics = {
+ScriptSchema.statics = {
   /**
    * Get user
-   * @param {ObjectId} id - The objectId of mapper.
+   * @param {ObjectId} id - The objectId of script.
    * @returns {Promise<User, APIError>}
    */
   get(_q) {
     return this.findOne(_q)
       .exec()
-      .then((mapper) => {
-        if (mapper) {
-          return mapper;
-        }
-        const err = new APIError('No such mapper exists!', httpStatus.NOT_FOUND);
+      .then((script) => {
+        return script;
+
+        const err = new APIError('No such script exists!', httpStatus.NOT_FOUND);
         return Promise.reject(err);
       });
   },
 
   /**
-   * List mapper in descending order of 'createdAt' timestamp.
+   * List script in descending order of 'createdAt' timestamp.
    * @param {number} skip - Number of users to be skipped.
    * @param {number} limit - Limit number of users to be returned.
    * @returns {Promise<User[]>}
@@ -63,6 +70,6 @@ MapperSchema.statics = {
 };
 
 /**
- * @typedef Mapper
+ * @typedef Script
  */
-export default mongoose.model('Mapper', MapperSchema, 'mappers');
+export default mongoose.model('Script', ScriptSchema, 'scripts');

@@ -4,6 +4,7 @@ import authRoutes from './auth.route';
 import templateRoutes from './template.route';
 import mapperRoutes from './mapper.route';
 import locatorRoutes from './locator.route';
+import scriptRoutes from './script.route';
 
 const router = express.Router(); // eslint-disable-line new-cap
 
@@ -26,5 +27,8 @@ router.use('/mapper', mapperRoutes);
 
 // mount template routes at /templates
 router.use('/locators', locatorRoutes);
+
+// mount template routes at /scripts
+router.use('/scripts', scriptRoutes);
 
 export default router;
