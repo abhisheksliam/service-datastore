@@ -6,11 +6,11 @@ import locatorCtrl from '../controllers/locator.controller';
 const router = express.Router(); // eslint-disable-line new-cap
 
 router.route('/')
-/** GET /api/locators/:app - Get list of locator */
+/** GET /api/locators/ - Get list of locator */
   .get(locatorCtrl.list)
 
 router.route('/:app')
-  /** GET /api/locators/:app - Get list of locator */
+  /** GET /api/locators/:app - Get list of app locator */
   .get(locatorCtrl.getAppLocator)
 
 router.route('/:app/:key')

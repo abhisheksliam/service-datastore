@@ -55,6 +55,7 @@ function generateAndSaveScript(req, res, next) {
     step_number: req.body.step_number,
     task_id: req.body.task_id,
     scenario: req.body.scenario,
+    params: req.body.params,
     appName: ""
   };
 
@@ -142,18 +143,21 @@ function getTemplateById(template_id, done, error) {
   });
 }
 
-function mergeTemplateParams(template, params) {
+function mergeTemplateParams(template, mapper, params) {
   var delimeter = '$$';
   // todo: replace using regex
 
   function getKeyValue(key) {
-    var ret = "";
-    for (var i = 0; i < params.length; i++) {
-      var el = params[i];
+    var ret = null;
+    for (var i = 0; i < mapper.length; i++) {
+      var el = mapper[i];
       if (delimeter + el['key'] + delimeter === key) {
         ret = el['refer']['ext_key'];
         break;
       }
+    }
+    if (ret !== null) {
+      ret = params[ret] === undefined ? ret : params[ret];
     }
     return ret;
   };
@@ -199,7 +203,7 @@ function prepareScriptItem(script_meta, done, error) {
         "revision": template.meta.version
       };
 
-      var script_item = mergeTemplateParams(template_item, mapper.parameters);
+      var script_item = mergeTemplateParams(template_item, mapper.parameters, script_meta.params);
 
       done(script_item);
     }, function (e) {

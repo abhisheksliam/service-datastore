@@ -25,11 +25,11 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var router = _express2.default.Router(); // eslint-disable-line new-cap
 
 router.route('/')
-/** GET /api/locators/:app - Get list of locator */
+/** GET /api/locators/ - Get list of locator */
 .get(_locator2.default.list);
 
 router.route('/:app')
-/** GET /api/locators/:app - Get list of locator */
+/** GET /api/locators/:app - Get list of app locator */
 .get(_locator2.default.getAppLocator);
 
 router.route('/:app/:key')
