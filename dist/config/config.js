@@ -32,7 +32,8 @@ var _Joi$validate = _joi2.default.validate(process.env, envVarsSchema),
     envVars = _Joi$validate.value;
 
 if (error) {
-  throw new Error('Config validation error: ' + error.message);
+  //throw new Error(`Config validation error: ${error.message}`);
+  console.log('Config validation error: ' + error.message);
 }
 
 var config = {
