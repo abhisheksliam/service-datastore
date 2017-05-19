@@ -33,11 +33,11 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var router = _express2.default.Router(); // eslint-disable-line new-cap
 
 /** POST /api/auth/login - Returns token if correct username and password is provided */
-router.route('/login').post((0, _expressValidation2.default)(_paramValidation2.default.login), _auth2.default.login);
+router.route('/login').post( /*validate(paramValidation.login),*/_auth2.default.login);
 
 /** GET /api/auth/random-number - Protected route,
  * needs token returned by the above as header. Authorization: Bearer {token} */
-router.route('/random-number').get((0, _expressJwt2.default)({ secret: _config2.default.jwtSecret }), _auth2.default.getRandomNumber);
+router.route('/random-number').get( /*expressJwt({ secret: config.jwtSecret }),*/_auth2.default.getRandomNumber);
 
 exports.default = router;
 module.exports = exports['default'];

@@ -29,14 +29,14 @@ router.route('/')
 .get(_user2.default.list)
 
 /** POST /api/users - Create new user */
-.post((0, _expressValidation2.default)(_paramValidation2.default.createUser), _user2.default.create);
+.post( /*validate(paramValidation.createUser),*/_user2.default.create);
 
 router.route('/:userId')
 /** GET /api/users/:userId - Get user */
 .get(_user2.default.get)
 
 /** PUT /api/users/:userId - Update user */
-.put((0, _expressValidation2.default)(_paramValidation2.default.updateUser), _user2.default.update)
+.put( /*validate(paramValidation.updateUser),*/_user2.default.update)
 
 /** DELETE /api/users/:userId - Delete user */
 .delete(_user2.default.remove);
