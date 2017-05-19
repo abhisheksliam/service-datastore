@@ -9,16 +9,10 @@ import APIError from '../helpers/APIError';
 const ScriptSchema = new mongoose.Schema({
   "uuid": String,
   "name": String,
-  "task_id": String,
+  "sle_id": String,
   "meta": {},
   "publish": {},
-  "task_json": [
-    {"scenario": String,
-     "id": String,
-      "appName": String,
-      "items": []
-    }
-  ]
+  "task_json": []
 });
 
 /**

@@ -21,7 +21,7 @@ function getByScriptId(req, res) {
 }
 
 function getScriptByTaskId(req, res) {
-  let _q = {"task_id": req.params['taskId']};
+  let _q = {"sle_id": req.params['taskId']};
 
   Script.get(_q)
       .then((script) => {
@@ -73,10 +73,12 @@ function generateAndSaveScript(req, res, next ) {
                         "id" : script_meta.task_id,
                         "scenario" : script_meta.scenario
                       },
-                    []
+                    [
+                        ["\"1\", \"1\""]
+                    ]
                     ]
                   };
-                }
+            }
 
           //update script item
               scriptData.task_json[0].items[parseInt(script_meta.step_number) -1] = script_item;
@@ -164,7 +166,7 @@ function mergeTemplateParams( template, mapper, params ) {
 }
 
 function _getScriptByTaskId( taskid, done, error ) {
-  let _q = {"task_id": taskid};
+  let _q = {"sle_id": taskid};
 
   Script.get(_q)
       .then((script) => {

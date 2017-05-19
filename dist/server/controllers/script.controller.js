@@ -41,7 +41,7 @@ function getByScriptId(req, res) {
 }
 
 function getScriptByTaskId(req, res) {
-  var _q = { "task_id": req.params['taskId'] };
+  var _q = { "sle_id": req.params['taskId'] };
 
   _script3.default.get(_q).then(function (script) {
     if (req.query.format === 'xml') {
@@ -90,7 +90,7 @@ function generateAndSaveScript(req, res, next) {
             "appName": script_meta.appName,
             "id": script_meta.task_id,
             "scenario": script_meta.scenario
-          }, []]
+          }, [["\"1\", \"1\""]]]
         };
       }
 
@@ -189,7 +189,7 @@ function mergeTemplateParams(template, mapper, params) {
 }
 
 function _getScriptByTaskId(taskid, done, error) {
-  var _q = { "task_id": taskid };
+  var _q = { "sle_id": taskid };
 
   _script3.default.get(_q).then(function (script) {
     done(script);
