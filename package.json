@@ -10,7 +10,7 @@
   },
   "scripts": {
     "postinstall": "gulp",
-    "start": "node dist/index.js"
+    "start": "gulp serve"
   },
   "repository": {
     "type": "git",
