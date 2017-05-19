@@ -3,7 +3,6 @@ import Mapper from '../models/mapper.model';
 import Template from '../models/template.model';
 
 import Service from '../services/scriptor';
-import Beautify from '../helpers/beautify';
 
 import ScriptConfig from '../../config/script-config';
 
@@ -32,9 +31,7 @@ function getScriptByTaskId(req, res) {
               return res.send(xmlContent);
           } else if(req.query.format === 'java') {
               var javaContent = Service.jsonToDistJava(script);
-              javaContent = javaContent.slice(1, -1);
-
-              return res.json(Beautify.js_beautify(javaContent));
+              return res.json(javaContent);
           } else {
               return res.json(script);
           }
