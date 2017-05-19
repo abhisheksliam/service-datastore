@@ -6,8 +6,7 @@
   "main": "index.js",
   "private": false,
   "engines": {
-    "node": "6.10.3",
-    "npm": "3.10.10"
+    "node": "6.10.3"
   },
   "scripts": {
     "postinstall": "gulp",
