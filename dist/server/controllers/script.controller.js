@@ -16,6 +16,10 @@ var _template = require('../models/template.model');
 
 var _template2 = _interopRequireDefault(_template);
 
+var _scriptor = require('../services/scriptor');
+
+var _scriptor2 = _interopRequireDefault(_scriptor);
+
 var _scriptConfig = require('../../config/script-config');
 
 var _scriptConfig2 = _interopRequireDefault(_scriptConfig);
@@ -40,7 +44,16 @@ function getScriptByTaskId(req, res) {
   var _q = { "task_id": req.params['taskId'] };
 
   _script3.default.get(_q).then(function (script) {
-    return res.json(script);
+    if (req.query.format === 'xml') {
+      var xmlContent = _scriptor2.default.jsonToDistXml(script);
+      res.set('Content-Type', 'text/xml');
+      return res.send(xmlContent);
+    } else if (req.query.format === 'java') {
+      var javaContent = _scriptor2.default.jsonToDistJava(script);
+      return res.json(javaContent);
+    } else {
+      return res.json(script);
+    }
   }).catch(function (e) {
     return next(e);
   });
@@ -71,13 +84,13 @@ function generateAndSaveScript(req, res, next) {
       } else {
         console.log('************** script do not exist');
         scriptData = {
-          task_id: script_meta.task_id + '.' + script_meta.scenario,
+          sle_id: script_meta.task_id + '.' + script_meta.scenario,
           task_json: [{
             "items": [],
             "appName": script_meta.appName,
             "id": script_meta.task_id,
             "scenario": script_meta.scenario
-          }]
+          }, []]
         };
       }
 

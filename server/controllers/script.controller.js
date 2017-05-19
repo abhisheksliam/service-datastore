@@ -2,6 +2,8 @@ import Script from '../models/script.model';
 import Mapper from '../models/mapper.model';
 import Template from '../models/template.model';
 
+import Service from '../services/scriptor';
+
 import ScriptConfig from '../../config/script-config';
 
 /**
@@ -23,7 +25,16 @@ function getScriptByTaskId(req, res) {
 
   Script.get(_q)
       .then((script) => {
-        return res.json(script);
+          if(req.query.format === 'xml') {
+              var xmlContent = Service.jsonToDistXml(script);
+              res.set('Content-Type', 'text/xml');
+              return res.send(xmlContent);
+          } else if(req.query.format === 'java') {
+              var javaContent = Service.jsonToDistJava(script);
+              return res.json(javaContent);
+          } else {
+              return res.json(script);
+          }
       })
       .catch(e => next(e));
 }
@@ -54,14 +65,15 @@ function generateAndSaveScript(req, res, next ) {
           } else {
               console.log('************** script do not exist');
                 scriptData = {
-                    task_id: (script_meta.task_id + '.' + script_meta.scenario),
+                    sle_id: (script_meta.task_id + '.' + script_meta.scenario),
                     task_json: [
                       {
                         "items": [],
                         "appName" : script_meta.appName,
                         "id" : script_meta.task_id,
                         "scenario" : script_meta.scenario
-                      }
+                      },
+                    []
                     ]
                   };
                 }
@@ -194,5 +206,7 @@ function prepareScriptItem( script_meta, done, error ){
       }
   )
 }
+
+
 
 export default { getByScriptId, getScriptByTaskId, generateAndSaveScript, list };
