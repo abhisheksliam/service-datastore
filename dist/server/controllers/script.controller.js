@@ -20,10 +20,6 @@ var _scriptor = require('../services/scriptor');
 
 var _scriptor2 = _interopRequireDefault(_scriptor);
 
-var _beautify = require('../helpers/beautify');
-
-var _beautify2 = _interopRequireDefault(_beautify);
-
 var _scriptConfig = require('../../config/script-config');
 
 var _scriptConfig2 = _interopRequireDefault(_scriptConfig);
@@ -54,9 +50,7 @@ function getScriptByTaskId(req, res) {
       return res.send(xmlContent);
     } else if (req.query.format === 'java') {
       var javaContent = _scriptor2.default.jsonToDistJava(script);
-      javaContent = javaContent.slice(1, -1);
-
-      return res.json(_beautify2.default.js_beautify(javaContent));
+      return res.json(javaContent);
     } else {
       return res.json(script);
     }
