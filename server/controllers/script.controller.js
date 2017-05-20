@@ -31,7 +31,13 @@ function getScriptByTaskId(req, res) {
               return res.send(xmlContent);
           } else if(req.query.format === 'java') {
               var javaContent = Service.jsonToDistJava(script);
-              return res.json(javaContent);
+
+                  res.set('Content-type', 'text/plain');
+                  res.charset = 'UTF-8';
+                  //var _temp = {java: javaContent};
+
+              console.log(javaContent);
+              return res.send(javaContent);
           } else {
               return res.json(script);
           }
