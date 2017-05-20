@@ -90,7 +90,7 @@ function generateAndSaveScript(req, res, next) {
             "appName": script_meta.appName,
             "id": script_meta.task_id,
             "scenario": script_meta.scenario
-          }, [["\"1\", \"1\""]]]
+          }, [["\"1\", \"1\""], "\"Primary\""]]
         };
       }
 

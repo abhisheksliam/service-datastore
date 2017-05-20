@@ -74,7 +74,8 @@ function generateAndSaveScript(req, res, next ) {
                         "scenario" : script_meta.scenario
                       },
                     [
-                        ["\"1\", \"1\""]
+                        ["\"1\", \"1\""],
+                        "\"Primary\""
                     ]
                     ]
                   };
