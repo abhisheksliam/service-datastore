@@ -56,6 +56,7 @@ function generateAndSaveScript(req, res, next ) {
     task_id: req.body.task_id,
     scenario: req.body.scenario,
     params: req.body.params,
+    pathways: req.body.methods,
     appName: ""
   };
 
@@ -80,8 +81,7 @@ function generateAndSaveScript(req, res, next ) {
                         "scenario" : script_meta.scenario
                       },
                     [
-                        ["\"1\", \"1\""],
-                        "\"Primary\""
+                        ["\"1\", \"1\""],"\"Primary\""
                     ]
                     ]
                   };
@@ -89,6 +89,18 @@ function generateAndSaveScript(req, res, next ) {
 
           //update script item
               scriptData.task_json[0].items[parseInt(script_meta.step_number) -1] = script_item;
+
+          // update script pathways
+             scriptData.task_json[1] = generatePathways(script_meta.pathways);
+
+                function generatePathways(input){
+                    var pathways = [];
+                    for (var i=0; i<input.length; i++) {
+                        pathways.push([('1,'+input[i]).toString()]);
+                        pathways.push("Primary");
+                    }
+                    return pathways;
+                }
 
           // save updated script
               const _script = new Script(scriptData);
