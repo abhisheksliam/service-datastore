@@ -110,7 +110,7 @@ function generateAndSaveScript(req, res, next) {
       function generatePathways(input) {
         var pathways = [];
         for (var i = 0; i < input.length; i++) {
-          pathways.push([('1,' + input[i]).toString()]);
+          pathways.push([('"1","' + input[i] + '"').toString()]);
           pathways.push("Primary");
         }
         return pathways;
