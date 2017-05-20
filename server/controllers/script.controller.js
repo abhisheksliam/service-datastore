@@ -97,7 +97,7 @@ function generateAndSaveScript(req, res, next ) {
                     var pathways = [];
                     for (var i=0; i<input.length; i++) {
                         pathways.push([('"1","'+input[i]+'"').toString()]);
-                        pathways.push("Primary");
+                        pathways.push('"Primary"');
                     }
                     return pathways;
                 }
